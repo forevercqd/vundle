@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/qingxin/Workspace/fast-rcnn/lib/utils'
+let g:netrw_dirhist_2='/home/qingxin/Desktop/Projects/multiview_face_detect/tools'
+let g:netrw_dirhist_3='/home/qingxin/Desktop/Projects/multiview_face_detect'
+let g:netrw_dirhist_4='/home/chenjik/project/code/data/voc2012'
