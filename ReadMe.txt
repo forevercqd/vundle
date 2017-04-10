@@ -1,7 +1,7 @@
 1.  Install following the steps:
     1). git clone https://github.com/forevercqd/vundle.git ~/vundle
     2). sudo cp  ~/vundle/*  ~/
-    3)  git clone https://github.com/VundleVim/Vundle.vim.git  ~/.vim/bundle/Vundle.vim
+    3)  git clone   https://github.com/gmarik/Vundle.vim.git    ~/.vim/bundle/Vundle.vim
         note: git may failed, so execute "sudo rm -rf ~/.vim/bundle/Vundle.vim" 
     4). :vim    // 启动 vim; 
     5). 启动vim 后, 再执行 ":PluginInstall" 即可安装相应插件;
