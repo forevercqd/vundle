@@ -66,7 +66,7 @@ let g:indent_guides_guide_size=1
 "-------------------------------------------折叠----------------------
 " 基于缩进或语法进行代码折叠
 set foldenable              " 开始折叠
-set foldmethod=syntax       " 设置语法折叠
+set foldmethod=indent       " 设置语法折叠
 set foldcolumn=0            " 设置折叠区域的宽度
 set foldlevel=0             " 设置折叠层数为
 set foldlevelstart=1        " 打开文件是默认折叠代码的层数,1时仅主干不折叠;
@@ -81,7 +81,11 @@ call vundle#begin()
 "Plugin 'VundleVim/Vundle.vim'
 Plugin 'gmarik/Vundle.vim' 
 Plugin 'universal-ctags/ctags'
+Plugin 'vim-scripts/winmanager'
 Plugin 'taglist.vim'
+Plugin 'vim-scripts/vimprj'
+Plugin 'vim-scripts/DfrankUtil'
+Plugin 'kshenoy/vim-signature' 
 Plugin 'ruben2020/codequery'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'altercation/vim-colors-solarized'
@@ -108,7 +112,43 @@ let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
 "=====================================================================插件=============================================================
+"-------------------------------------------tab 操作----------------------
+" http://vim.wikia.com/wiki/Alternative_tab_navigation
+" http://stackoverflow.com/questions/2005214/switching-to-a-particular-tab-in-vim
 
+" tab切换
+map <leader>th :tabfirst<cr>
+map <leader>tl :tablast<cr>
+
+map <leader>tj :tabnext<cr>
+map <leader>tk :tabprev<cr>
+map <leader>tn :tabnext<cr>
+map <leader>tp :tabprev<cr>
+
+map <leader>te :tabedit<cr>
+map <leader>td :tabclose<cr>
+map <leader>tm :tabm<cr>
+
+" normal模式下切换到确切的tab
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" 新建tab  Ctrl+t
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-t>     <Esc>:tabnew<CR>
+
+"-------------------------------------------tagbar----------------------
+" 调整缩进后自动选中，方便再次操作
+vnoremap < <gv
+vnoremap > >gv
 "-------------------------------------------tagbar----------------------
 " 设置显示／隐藏标签列表子窗口的快捷键。速记：symbol list
 nnoremap <Leader>sl :TagbarToggle<CR> 
@@ -156,6 +196,10 @@ let g:tagbar_type_cpp = {
 \ }
 
 
+" 正向遍历同名标签
+nmap <Leader>tn :tnext<CR>
+" 反向遍历同名标签
+nmap <Leader>tp :tprevious<CR>"
 "-------------------------------------------nerdtree.vim----------------------
 " 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
 nmap <Leader>fl :NERDTreeToggle<CR>
@@ -173,6 +217,7 @@ let NERDTreeShowBookmarks=1
 "let NERDTreeQuitOnOpen=1
 "高亮NERDTrre窗口的当前行"
 let NERDTreeHighlightCursorline=1
+let g:winManagerWindowLayout='FileExplorer|TagList'
 
 " 当不带参数打开Vim时自动加载项目树
 autocmd StdinReadPre * let s:std_in=1
@@ -194,6 +239,17 @@ noremap <C-S-TAB> :MBEbp<CR>
 noremap <Leader>fw :MBEbn<CR>
 noremap <Leader>bw :MBEbp<CR>
 
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapCTabSwitchWindows = 1
+"let g:miniBufExplMapCTabSwitchBufs = 1 
+let g:miniBufExplModSelTarget = 1
+
+"解决FileExplorer窗口变小问题
+let g:miniBufExplForceSyntaxEnable = 1
+let g:miniBufExplorerMoreThanOne=2"
+
+
 "-------------------------------------------taglist.vim---------------------->>
 noremap <F8> :!ctags -R --langmap=c++:+.mm  --c++-kinds=+p --fields=+iaS --extra=+q  <CR>
 let Tlist_Ctags_Cmd='ctags'
@@ -201,8 +257,11 @@ let Tlist_Show_One_File=1               "不同时显示多个文件的tag，只
 let Tlist_WinWidt =28                   "设置taglist的宽度
 let Tlist_Exit_OnlyWindow=1             "如果taglist窗口是最后一个窗口，则退出vim
 "let Tlist_Use_Right_Window=1           "在右侧窗口中显示taglist窗口
-let Tlist_Use_Left_Windo =1             "在左侧窗口中显示taglist窗口
+"let Tlist_Use_Left_Window =1            "在左侧窗口中显示taglist窗口
 let Tlist_Auto_Open=1
+
+let Tlist_Show_Menu=1                   "显示taglist菜单
+
 
 nmap fj g]
 nmap ff <C-T>
@@ -263,3 +322,105 @@ if has("cscope")
   endif
   set csverb
 endif
+
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+" The following maps all invoke one of the following cscope search types:
+ "
+ "   's'   symbol: find all references to the token under cursor
+ "   'g'   global: find global definition(s) of the token under cursor
+ "   'c'   calls:  find all calls to the function name under cursor
+ "   't'   text:   find all instances of the text under cursor
+ "   'e'   egrep:  egrep search for the word under cursor
+ "   'f'   file:   open the filename under cursor
+ "   'i'   includes: find files that include the filename under cursor
+ "   'd'   called: find functions that function under cursor calls
+ "
+ " Below are three sets of the maps: one set that just jumps to your
+ " search result, one that splits the existing vim window horizontally and
+ " diplays your search result in the new window, and one that does the same
+ " thing, but does a vertical split instead (vim 6 only).
+ "
+ " I've used CTRL-\ and CTRL-@ as the starting keys for these maps, as it's
+ " unlikely that you need their default mappings (CTRL-\'s default use is
+ " as part of CTRL-\ CTRL-N typemap, which basically just does the same
+ " thing as hitting 'escape': CTRL-@ doesn't seem to have any default use).
+ " If you don't like using 'CTRL-@' or CTRL-\, , you can change some or all
+ " of these maps to use other keys.  One likely candidate is 'CTRL-_'
+ " (which also maps to CTRL-/, which is easier to type).  By default it is
+ " used to switch between Hebrew and English keyboard mode.
+ "
+ " All of the maps involving the <cfile> macro use '^<cfile>$': this is so
+ " that searches over '#include <time.h>" return only references to
+ " 'time.h', and not 'sys/time.h', etc. (by default cscope will return all
+ " files that contain 'time.h' as part of their name).
+
+
+" To do the first type of search, hit 'CTRL-\', followed by one of the
+"cscope search types above (s,g,c,t,e,f,i,d).  The result of your cscope
+" search will be displayed in the current window.  You can use CTRL-T to
+" go back to where you were before the search.  
+" Note: *****************************
+" nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+" VIM中操作时，按下 CTRL+\+g, 是没作用。实际是先按ctrl不放，按\键，同时放开，快速按g键！
+ 
+nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>    
+nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>    
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>    
+nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>    
+nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>    
+nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>    
+nmap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>    
+
+
+" Using 'CTRL-spacebar' (intepreted as CTRL-@ by vim) then a search type
+" makes the vim window split horizontally, with search result displayed in
+" the new window.
+"
+" (Note: earlier versions of vim may not have the :scs command, but it
+" can be simulated roughly via:
+"    nmap <C-@>s <C-W><C-S> :cs find s <C-R>=expand("<cword>")<CR><CR>    
+
+nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>   
+nmap <C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR>   
+nmap <C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR>   
+nmap <C-@>t :scs find t <C-R>=expand("<cword>")<CR><CR>   
+nmap <C-@>e :scs find e <C-R>=expand("<cword>")<CR><CR>   
+nmap <C-@>f :scs find f <C-R>=expand("<cfile>")<CR><CR>   
+nmap <C-@>i :scs find i <C-R>=expand("<cfile>")<CR><CR> 
+nmap <C-@>d :scs find d <C-R>=expand("<cword>")<CR><CR>   
+
+
+" Hitting CTRL-space *twice* before the search type does a vertical 
+" split instead of a horizontal one (vim 6 and up only)
+"
+" (Note: you may wish to put a 'set splitright' in your .vimrc
+" if you prefer the new window on the right instead of the left
+
+nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@><C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@><C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@><C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@><C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR> 
+nmap <C-@><C-@>i :vert scs find i <C-R>=expand("<cfile>")<CR><CR>   
+nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+
+"调整窗口大小
+nmap    w=  :resize +3<CR>
+nmap    w-  :resize -3<CR>
+nmap    w,  :vertical resize -3<CR>
+nmap    w.  :vertical resize +3<CR>
+
+
+
+"-------------------------------------------vim-indent-guides----------------------
+" 随 vim 自启动
+ let g:indent_guides_enable_on_vim_startup=1
+ " 从第二层开始可视化显示缩进
+ let g:indent_guides_start_level=2
+ " 色块宽度
+ let g:indent_guides_guide_size=1
+ " 快捷键 i 开/关缩进可视化
+ :nmap <silent> <Leader>i <Plug>IndentGuidesToggle"
