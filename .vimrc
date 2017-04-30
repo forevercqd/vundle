@@ -217,11 +217,11 @@ let NERDTreeShowBookmarks=1
 "let NERDTreeQuitOnOpen=1
 "高亮NERDTrre窗口的当前行"
 let NERDTreeHighlightCursorline=1
-let g:winManagerWindowLayout='FileExplorer|TagList'
 
 " 当不带参数打开Vim时自动加载项目树
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
 " 当所有文件关闭时关闭项目树窗格
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " 不显示这些文件
@@ -231,13 +231,11 @@ let NERDTreeMinimalUI=1
 " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
 
-" 显示/隐藏 MiniBufExplorer 窗口.设置快捷键，速度：buffer list
+"-------------------------------------------MiniBufExplorer----------------------
 map <Leader>bl :MBEToggle<cr>
 " buffer 切换快捷键
-noremap <C-TAB> :MBEbn<CR>
-noremap <C-S-TAB> :MBEbp<CR>
-noremap <Leader>fw :MBEbn<CR>
-noremap <Leader>bw :MBEbp<CR>
+noremap <Leader>bn :MBEbn<CR>
+noremap <Leader>bp :MBEbp<CR>
 
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapWindowNavVim = 1
@@ -249,6 +247,34 @@ let g:miniBufExplModSelTarget = 1
 let g:miniBufExplForceSyntaxEnable = 1
 let g:miniBufExplorerMoreThanOne=2"
 
+
+"-------------------------------------------winManager----------------------
+"let g:winManagerWindowLayout='FileExplorer|TagList'
+let g:winManagerWindowLayout="NERDTree|TagList"
+let g:NERDTree_title="[NERDTree]"
+
+nmap <C-m> :WMToggle<CR>
+
+function! NERDTree_Start()  
+    exec 'NERDTree'  
+endfunction
+
+function! NERDTree_IsValid()  
+    return 1  
+endfunction
+
+"自动开启,可以选择开启vim即启用winmanaer，那么将需要将vimmanager.vim中的AutoOpenWinManger的注释取消。  
+let g:AutoOpenWinManager = 1  "
+
+" Note 除了要设置上述操作外，还需要在plugin/winmanager.vim
+" 文件的最后中添加下述
+" "自动打开Winmanager
+" if g:AutoOpenWinManager
+"     autocmd VimEnter *  nested  call  s:StartWindowsManager()|q|3wincmd w //此处的3还是4或者其它数字，需要用户自己去计算下;
+" endif
+" 
+" "自动退出Winmanager
+" autocmd bufenter * if (winnr("$") == 2 && exists("b:NERDTreeType")&&b:NERDTreeType == "primary")  | qa | endif
 
 "-------------------------------------------taglist.vim---------------------->>
 noremap <F8> :!ctags -R --langmap=c++:+.mm  --c++-kinds=+p --fields=+iaS --extra=+q  <CR>

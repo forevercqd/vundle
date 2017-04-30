@@ -33,9 +33,26 @@
     5).  在vim中打开编辑文件命令：   
         :e! ~/.vimrc " 
 
+    6). winManager 自动打开问题
+        6.1) ~/.vimrc 中添加:
+            "自动开启,可以选择开启vim即启用winmanaer，那么将需要将vimmanager.vim中的AutoOpenWinManger的注释取消。
+            let g:AutoOpenWinManager = 1  "
+
+        6.2) " Note 除了要设置上述操作外，还需要在plugin/winmanager.vim 文件的最后中添加下述
+            "自动打开Winmanager
+            if g:AutoOpenWinManager
+                autocmd VimEnter *  nested  call s:StartWindowsManager()|q|3wincmd w // 此处的3还是4或者其它数字，需要用户自己去计算下;
+            endif
+            
+            "自动退出Winmanager
+            autocmd bufenter * if (winnr("$") == 2 && exists("b:NERDTreeType")&&b:NERDTreeType == "primary")  | qa | endif"
 
 基本快捷键：
-    0)  9. 常用快捷键
+    0)  常用快捷键
+        :n1,n2 co n3    : 将n1行到n2行之间的内容拷贝到第n3行下
+        :n1,n2 m n3     :将n1行到n2行之间的内容移至到第n3行下
+        :n1,n2 d        : 将 n1行到n2行之间的内容删除
+        :n1,n2 w!command: 将文件中n1行至n2行的内容作为command的输入并执行之，
         %   跳转到配对的括号去
         [[  跳转到代码块的开头去(但要求代码块中'{'必须单独占一行)
         gD  跳转到局部变量的定义处
@@ -46,10 +63,11 @@
         <   减少缩进,"x<"表示减少以下x行的缩进"`")`
         "}')]]
     1） 调整窗口大小,常规模式下：
-	    w= : 垂直方向减小窗口 
-	    w- : 垂直方向增加窗口 
-	    w, : 水平方向减小窗口
-	    w. : 水平方向减小窗口     
+	    w= : 减小窗口高度 
+	    w- : 增加窗口高度
+	    w, : 减小窗口宽度
+	    w. : 减小窗口宽度     
+	    Ctrl+w = : 让所有屏幕一样宽度
     2) tab 间相互切换 
         ;1 : 切换至第1个tab
         ;2 : 切换至第2个tab
@@ -85,7 +103,7 @@
         所以在遍历前需要通过快捷键 ctrl‐] 将光标所在单词匹配的所有标签压入标签栈中，然后才能遍历。
         具体步骤为:
             先查找某符号,在让你选择标号前，先按 “ ctrl‐]”将光标所在单词匹配的所有标签压入标签栈中;
-    9).3.1 多行注释
+    9).多行注释
         多行注释按键操作：
         注释：Ctrl-v 进入列编辑模式，向下或向上移动光标，把需要注释的行的开头标记起来，然后按大写的I，再插入注释符比如"#"，按Esc，就会全部注释了。
         删除：Ctrl-v 进入列编辑模式，向下或向上移动光标，选中注释部分，按d，就会删除注释符号。
@@ -94,5 +112,23 @@
         :%s/^/\/\//g来在全部内容的行首添加//号注释
          :2,50s/^/\/\//g在2~50行首添加//号注释
         反过来替换既是删除操作。
-        " 
-k
+    10).代码折叠:
+        折叠当前代码： zc
+        递归折叠代码： zC
+        取消代码折叠： zo
+        递归取消折叠代码:  zO
+        折叠文件中的所有代码：  zM
+        取消文件中所有代码的折叠：  zR
+    11) MiniBufExplorer :
+        打开或关闭MiniBufExplorer: <Leader>bl
+        打开当前buffer的下一个buffer  :bn 或者<Leader>bn
+        打开当前buffer的前一个buffer  :bp 或者<Leader>bn
+        跳转至某编号的buffer    ：bM    // 此处的M表示对应的buffer的编号; 
+        展示全部的打开文档      :ls  
+    12) 查找:
+        查找并高亮当前光标下单词:shfit(左边)+#
+    13) 分屏快捷键:
+        ctrl+w s   对当前文档内容上下分屏显示
+        ctrl+w v   对当前文档内容左右下分屏显示
+        ctrl+w q   关闭所处分屏
+    14) winmanager 
