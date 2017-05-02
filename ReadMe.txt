@@ -45,7 +45,17 @@
             endif
             
             "自动退出Winmanager
-            autocmd bufenter * if (winnr("$") == 2 && exists("b:NERDTreeType")&&b:NERDTreeType == "primary")  | qa | endif"
+            autocmd bufenter * if (winnr("$") == 2 && exists("b:NERDTreeType")&&b:NERDTreeType == "primary")  | qa | endif
+    7). 安装过程中出现"core library compiled for Python 2 but loaded in Python 3. Set the 'g:ycm_server_python_interpreter' option to a Python 2 interpreter path"
+        解决办法是.vimrc里声明一句:
+        let g:ycm_path_to_python_interpreter='/usr/bin/python'
+    8). Taglist: Failed to generate tags 错误出现时：
+        重新安装 ctags;
+        taglist插件只支持exuberant ctags tool，不支持GNU ctags或UNIX ctags，Mac或Ubuntu下自带的并不是exuberant ctags，所以执行TlistToggle vim报错，解决方案如下：
+        ubuntu 下安装:
+               8.1) sudo apt-get install exuberant-ctags
+               8.2) .vimrc 添加 let Tlist_Ctags_Cmd = ‘/usr/bin/ctags 
+
 
 基本快捷键：
     0)  常用快捷键

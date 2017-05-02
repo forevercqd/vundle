@@ -311,6 +311,11 @@ let g:ycm_complete_in_comments=1
 let g:ycm_confirm_extra_conf=0
 " 开启 YCM 标签补全引擎
 let g:ycm_collect_identifiers_from_tags_files=1
+
+"解决YCM core library compiled for Python 2 but loaded in Python 3. Set the
+"'g:ycm_server_python_interpreter' option to a Python 2 interpreter path
+let g:ycm_path_to_python_interpreter='/usr/bin/python'
+
 " 引入 C++ 标准库tags
 " set tags+=/data/misc/software/misc./vim/stdcpp.tags
 set tags=tags
