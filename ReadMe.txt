@@ -143,3 +143,5 @@
         ctrl+w v   对当前文档内容左右下分屏显示
         ctrl+w q   关闭所处分屏
     14) winmanager 
+         map <Leader>wl :WMToggle<CR>  // 使用 ;wl 打开右侧的 NERDTree | Tlist 窗口;
+       

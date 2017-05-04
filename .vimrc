@@ -254,7 +254,7 @@ let g:miniBufExplorerMoreThanOne=2"
 let g:winManagerWindowLayout="NERDTree|TagList"
 let g:NERDTree_title="[NERDTree]"
 
-nmap <C-m> :WMToggle<CR>
+map <Leader>wl :WMToggle<CR>
 
 function! NERDTree_Start()  
     exec 'NERDTree'  
