@@ -133,6 +133,7 @@
         打开或关闭MiniBufExplorer: <Leader>bl
         打开当前buffer的下一个buffer  :bn 或者<Leader>bn
         打开当前buffer的前一个buffer  :bp 或者<Leader>bn
+        关闭某一个buffer  :bd 或者<Leader>bd
         跳转至某编号的buffer    ：bM    // 此处的M表示对应的buffer的编号; 
         展示全部的打开文档      :ls  
     12) 查找:

@@ -236,6 +236,7 @@ map <Leader>bl :MBEToggle<cr>
 " buffer 切换快捷键
 noremap <Leader>bn :MBEbn<CR>
 noremap <Leader>bp :MBEbp<CR>
+noremap <Leader>bd :MBEbd<CR>
 
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapWindowNavVim = 1
@@ -270,7 +271,7 @@ let g:AutoOpenWinManager = 1  "
 " 文件的最后中添加下述
 " "自动打开Winmanager
 " if g:AutoOpenWinManager
-"     autocmd VimEnter *  nested  call  s:StartWindowsManager()|q|3wincmd w //此处的3还是4或者其它数字，需要用户自己去计算下;
+"     autocmd VimEnter *  nested  call  s:StartWindowsManager()|q|3wincmd w "此处的3还是4或者其它数字，需要用户自己去计算下;
 " endif
 " 
 " "自动退出Winmanager
