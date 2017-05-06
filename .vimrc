@@ -91,6 +91,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'Lokaltog/vim-powerline'
+Plugin 'mbbill/echofunc'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'scrooloose/nerdtree'
@@ -144,6 +145,13 @@ noremap <leader>0 :tablast<cr>
 " 新建tab  Ctrl+t
 nnoremap <C-t>     :tabnew<CR>
 inoremap <C-t>     <Esc>:tabnew<CR>
+
+
+"-------------------------------------------Echofunc (echofunc.vim)----------------------
+let g:EchoFuncKeyNext='<S-n>'
+let g:EchoFuncKeyPrev='<S-p>'
+let g:EchoFuncAutoStartBalloonDeclaration = 1"
+
 
 "-------------------------------------------tagbar----------------------
 " 调整缩进后自动选中，方便再次操作
@@ -223,7 +231,7 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " 当所有文件关闭时关闭项目树窗格
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " 不显示这些文件
 let NERDTreeIgnore=['\.pyc$', '\~$', 'node_modules'] "ignore files in NERDTree
 " 不显示项目树上额外的信息，例如帮助、提示什么的
@@ -250,7 +258,7 @@ let g:miniBufExplorerMoreThanOne=2"
 
 
 "-------------------------------------------winManager----------------------
-"let g:winManagerWindowLayout='FileExplorer|TagList'
+"let g:winManagerWindowLayout="FileExplorer|TagList"
 let g:winManagerWindowLayout="NERDTree|TagList"
 let g:NERDTree_title="[NERDTree]"
 
@@ -265,10 +273,10 @@ function! NERDTree_IsValid()
 endfunction
 
 "自动开启,可以选择开启vim即启用winmanaer，那么将需要将vimmanager.vim中的AutoOpenWinManger的注释取消。  
-let g:AutoOpenWinManager = 1  "
+let g:AutoOpenWinManager = 1
 
 "自动退出Winmanager
-autocmd bufenter * if (winnr("$") == 2 && exists("b:NERDTreeType")&&b:NERDTreeType == "primary")  | qa | endif
+autocmd bufenter * if (winnr("$") == 2 &&exists("b:NERDTreeType")&&b:NERDTreeType == "primary")  | qa | endif
 
 
 " Note 除了要设置上述操作外，还需要在plugin/winmanager.vim
