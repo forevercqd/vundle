@@ -267,16 +267,17 @@ endfunction
 "自动开启,可以选择开启vim即启用winmanaer，那么将需要将vimmanager.vim中的AutoOpenWinManger的注释取消。  
 let g:AutoOpenWinManager = 1  "
 
+"自动退出Winmanager
+autocmd bufenter * if (winnr("$") == 2 && exists("b:NERDTreeType")&&b:NERDTreeType == "primary")  | qa | endif
+
+
 " Note 除了要设置上述操作外，还需要在plugin/winmanager.vim
 " 文件的最后中添加下述
 " "自动打开Winmanager
 " if g:AutoOpenWinManager
 "     autocmd VimEnter *  nested  call  s:StartWindowsManager()|q|3wincmd w "此处的3还是4或者其它数字，需要用户自己去计算下;
 " endif
-" 
-" "自动退出Winmanager
-" autocmd bufenter * if (winnr("$") == 2 && exists("b:NERDTreeType")&&b:NERDTreeType == "primary")  | qa | endif
-
+ 
 "-------------------------------------------taglist.vim---------------------->>
 noremap <F8> :!ctags -R --langmap=c++:+.mm  --c++-kinds=+p --fields=+iaS --extra=+q  <CR>
 let Tlist_Ctags_Cmd='ctags'

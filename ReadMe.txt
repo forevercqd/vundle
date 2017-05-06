@@ -1,6 +1,6 @@
 1.  Install following the steps:
     1). git clone https://github.com/forevercqd/vundle.git ~/vundle
-    2). sudo cp  ~/vundle/*  ~/
+    2). sudo cp  ~/vundle/.vim*  ~/
     3)  git clone   https://github.com/gmarik/Vundle.vim.git    ~/.vim/bundle/Vundle.vim
         note: git may failed, so execute "sudo rm -rf ~/.vim/bundle/Vundle.vim" 
     4). :vim    // 启动 vim; 
@@ -144,4 +144,16 @@
         ctrl+w q   关闭所处分屏
     14) winmanager 
          map <Leader>wl :WMToggle<CR>  // 使用 ;wl 打开右侧的 NERDTree | Tlist 窗口;
-       
+    15) ctags 用法:
+        1). 在待生成 tags 的目录下新建 cscope.sh,注意 // 假如要.xxx 类型的文件也生成对应的 tags, 则在 find 参数中添加 -o  -name "*.xxx";
+            cscope.sh 内容如下:
+            sudo find ./ -name "*.h" -o -name "*.cpp" -o -name "*.c" -o  -name "*.mm"  -o  -name "*.java"> cscope.files
+            cscope -Rbq
+        2). 查找方法:
+            比如查找 Render2Screen 函数出现的所有地方,首先将光标移至 Render2Screen 处,然后执行发如下操作: 先按ctrl不放，按\键，同时放开，快速按s键;
+        3). cscopequickfix 
+            如果自动跳转的位置你不满意, 想看其他的结果, 可以用下面的命令打开QuickFix窗口: 
+            :cw     // 将打开查找的列表,用户可自行跳转到想要的结果中;
+        4). quickfix 窗口中各结果间切换:
+            跳至下一查找结果:   同时按下 Ctrl+n
+            跳至上一查找结果:   同时按下 Ctrl+p
