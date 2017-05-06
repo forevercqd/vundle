@@ -153,6 +153,14 @@ let g:EchoFuncKeyPrev='<S-p>'
 let g:EchoFuncAutoStartBalloonDeclaration = 1"
 
 
+"-------------------------------------------nerdcommenter----------------------
+"<leader>cc  "加注释 cu 去掉注释
+"<leader>cu
+"
+"<leader>c<space>    "加上/解开注释, 智能判断
+"<leader>cy          "先复制, 再注解(p可以进行黏贴)
+
+
 "-------------------------------------------tagbar----------------------
 " 调整缩进后自动选中，方便再次操作
 vnoremap < <gv
@@ -231,7 +239,7 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " 当所有文件关闭时关闭项目树窗格
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " 不显示这些文件
 let NERDTreeIgnore=['\.pyc$', '\~$', 'node_modules'] "ignore files in NERDTree
 " 不显示项目树上额外的信息，例如帮助、提示什么的

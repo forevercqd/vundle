@@ -160,3 +160,10 @@
     16). echofunc 用法:
         在输入完成函数的左括号，或者在输入函数参数的过程中，可以通过通过按SHIFT+N或者SHIFT+P来提示函数参数。提示信息会在下边状态栏显示该函数的输入参数；
         Note: 只有在输入过程中按 Shift + p 或 Shfit + n 才有效;
+    17). nerdcommenter 用法:
+        <leader>cc           "加注释
+        <leader>cu           "去掉注释
+
+        <leader>c<space>    "加上/解开注释, 智能判断
+        <leader>cy          "先复制, 再注解(p可以进行黏贴)
+
