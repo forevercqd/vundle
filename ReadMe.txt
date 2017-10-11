@@ -78,12 +78,13 @@
 	    w, : 减小窗口宽度
 	    w. : 减小窗口宽度     
 	    Ctrl+w = : 让所有屏幕一样宽度
-    2) tab 间相互切换 
+    2) tab 间相互切换     		
         ;1 : 切换至第1个tab
         ;2 : 切换至第2个tab
         ;3 : 切换至第3个tab
     3) 新建tab.
        Ctrl+t
+       : tabe filexxx // 新建 tab 中打开名为 “filexxx” 文件;
     4) 缩进
         shift + > + >  : 向右缩进(注意Shift 不要松);
         shift + < + <  : 向右缩进;
@@ -139,6 +140,9 @@
     12) 查找:
         查找并高亮当前光标下单词:shfit(左边)+#
     13) 分屏快捷键:
+    		:vsp filexxx	// 竖屏打开名为 “filexxx” 文件;
+    		:sp filexxx		// 横屏打开名为 “filexxx” 文件;
+
         ctrl+w s   对当前文档内容上下分屏显示
         ctrl+w v   对当前文档内容左右下分屏显示
         ctrl+w q   关闭所处分屏
