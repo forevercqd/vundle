@@ -371,6 +371,7 @@ if has("cscope")
   set csverb
 endif
 
+" quickfix窗口来显示cscope的搜索结果
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 " The following maps all invoke one of the following cscope search types:
